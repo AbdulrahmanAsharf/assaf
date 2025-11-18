@@ -49,18 +49,16 @@ export default function ProductCard({
   const title = locale === "ar" ? titleAr : titleEn;
   const t = useTranslations("card");
 
-  const { isSignedIn } = useAuth(); // 👈 Clerk Auth Check
+  const { isSignedIn } = useAuth(); 
   const { addItem } = useCart();
   const { addItem: addToWishlist, removeItem: removeFromWishlist, isInWishlist } = useWishlist();
 
 
-  const t1 = useTranslations("toast");
   const inWishlist = isInWishlist(id);
   const toast = useToast();
-  // 🔥 دالة toggle للقلب
   const handleWishlistToggle = () => {
     if (!isSignedIn) {
-      toast.error(t1("loginRequired"));
+      toast.error(("loginRequired"));
       return; // 👈 مهم جداً!
     }
     if (inWishlist) {
@@ -200,13 +198,12 @@ export function DialogDemo({ id, image, title, price, oldprice, modelnumber, sto
   const handleInc = () => setDialogQty(dialogQty + 1);
   const handleDec = () => setDialogQty(Math.max(1, dialogQty - 1));
 
-  const t1 = useTranslations("toast");
   const toast = useToast();
 
   const handleAddToCart = () => {
     addItem({ id, title, price, oldprice, image, qty: dialogQty, stock });
     localStorage.setItem("selectedCat", "cart");
-    toast.success(t1("addtocart"));
+    toast.success("addtocart");
   };
 
   const t = useTranslations("card");
