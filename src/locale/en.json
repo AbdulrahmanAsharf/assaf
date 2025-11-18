@@ -149,6 +149,7 @@
   "toast": {
     "addtocart": "Product added successfully",
     "otp": "Verification code sent, please enter it to continue",
+    "newUser": "Please complete your profile",
     "otpInvalid": "Invalid verification code",
     "otpsuccess": "Logged in successfully",
     "otperror": "Error verifying code",

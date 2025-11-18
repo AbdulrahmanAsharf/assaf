@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -44,7 +45,7 @@ export interface UserSRef {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface UserSProps {}
+interface UserSProps { }
 
 export const UserS = forwardRef<UserSRef, UserSProps>((props, ref) => {
   const { isLoaded: signInLoaded, signIn } = useSignIn();
@@ -124,10 +125,10 @@ export const UserS = forwardRef<UserSRef, UserSProps>((props, ref) => {
           setEmail(values.email);
           setStep("details");
         } catch (signUpErr: any) {
-          toast.error(signUpErr.message || "signupError");
+          toast.error("signupError");
         }
       } else {
-        toast.error(err.message || "signupError");
+        toast.error("signupError");
       }
     } finally {
       setIsEmailLoading(false);

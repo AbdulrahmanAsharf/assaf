@@ -3,7 +3,20 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["flagcdn.com", "res.cloudinary.com"], // ضيف cloudinary هنا
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "flagcdn.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "img.clerk.com",
+      },
+    ],
   },
 };
 

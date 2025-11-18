@@ -17,32 +17,33 @@ import { CircleCheck, CircleX, SaudiRiyal, Star } from "lucide-react";
 import Image from "next/image";
 import ProductActions from "@/components/ProductActions";
 import { getProductsByCategoryOrSlug } from "@/actions/getProducts";
-import { getTranslations } from "next-intl/server"; 
+import { getTranslations } from "next-intl/server";
+import { Handbag } from 'lucide-react';
 
 
 interface PageProps {
-  params: Promise<{
-    locale: string;
-    slug: string;
-    id: string;
-  }>;
+    params: Promise<{
+        locale: string;
+        slug: string;
+        id: string;
+    }>;
 }
 
 export default async function Page({ params }: PageProps) {
-    
+
     const { locale, slug, id } = await params;
 
-    const t = await getTranslations("ProductPage"); 
+    const t = await getTranslations("ProductPage");
     const dir = locale === "ar" ? "rtl" : "ltr";
-    const type = id[0]; 
+    const type = id[0];
     const realStableId = id;
 
-const decodedSlug = decodeURIComponent(slug);
-const cleanSlug = decodedSlug.replace(/-/g, " ").trim();
+    const decodedSlug = decodeURIComponent(slug);
+    const cleanSlug = decodedSlug.replace(/-/g, " ").trim();
 
-const isSpecialPage =
-  cleanSlug === "الجديد" || cleanSlug === "new" ||
-  cleanSlug === "جميع المنتجات" || cleanSlug === "all products";
+    const isSpecialPage =
+        cleanSlug === "الجديد" || cleanSlug === "new" ||
+        cleanSlug === "جميع المنتجات" || cleanSlug === "all products";
 
     if (isSpecialPage) {
         const specialProducts = await getProductsByCategoryOrSlug(slug, locale);
@@ -154,7 +155,7 @@ const isSpecialPage =
 
                     <h2 className="font-extrabold text-2xl mb-6">{categoryName}</h2>
 
-                    {category.products.length > 0 && (
+                    {category.products.length > 0 ? (
                         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 my-4">
                             {category.products.map((p) => (
                                 <ProductCard
@@ -171,7 +172,17 @@ const isSpecialPage =
                                 />
                             ))}
                         </div>
-                    )}
+                    ) : (
+                        <div className="flex flex-col items-center gap-5 py-25 ">
+                            <div className="rounded-full bg-indigo-50 p-15">
+                                <Handbag className="w-15 h-15 text-gray-400 " />
+                            </div>
+                            <p className="text-sm font-medium text-gray-400">
+                                {locale === "ar" ? "لا توجد منتجات في هذا القسم" : "No products in this category"}
+                            </p>
+                        </div>
+                    )
+                    }
                 </div>
             </div>
         );
@@ -201,7 +212,7 @@ const isSpecialPage =
                     {locale === "ar" ? `${catName} | ${subName}` : `${catName} | ${subName}`}
                 </h2>
 
-                {subCategory.products.length > 0 && (
+                {subCategory.products.length > 0 ? (
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 my-6">
                         {subCategory.products.map((p) => (
                             <ProductCard
@@ -217,6 +228,15 @@ const isSpecialPage =
                                 stock={p.stock}
                             />
                         ))}
+                    </div>
+                ) : (
+                    <div className="flex flex-col items-center gap-5 py-25 ">
+                        <div className="rounded-full bg-indigo-50 p-15">
+                            <Handbag className="w-15 h-15 text-gray-400 " />
+                        </div>
+                        <p className="text-sm font-medium text-gray-400">
+                            {locale === "ar" ? "لا توجد منتجات في هذا القسم" : "No products in this category"}
+                        </p>
                     </div>
                 )}
             </div>

@@ -23,7 +23,6 @@ const OTP_EXPIRY = 120;
 export default function OtpStep({ email, onBack, onSuccess }: OtpStepProps) {
   const { signIn, isLoaded } = useSignIn();
   const { setActive } = useClerk();
-  const tToast = useTranslations("toast");
   const tLogin = useTranslations("login");
   const locale = useLocale();
   const { success, error } = useToast();
@@ -60,12 +59,12 @@ export default function OtpStep({ email, onBack, onSuccess }: OtpStepProps) {
     if (expiry <= 0) {
       setOtp("");
       setCanResend(true);
-      error(tToast("otpExpired"));
+      error(("otpExpired"));
       return;
     }
     const id = setInterval(() => setExpiry((e) => e - 1), 1000);
     return () => clearInterval(id);
-  }, [expiry, error, tToast]);
+  }, [expiry, error]);
 
   // Resend OTP
   const handleResend = useCallback(async () => {
@@ -91,13 +90,13 @@ export default function OtpStep({ email, onBack, onSuccess }: OtpStepProps) {
       setExpiry(OTP_EXPIRY);
       setCanResend(false);
 
-      success(tToast("otp"));
+      success("otp");
     } catch (err: any) {
-      error(err.message || tToast("resendError"));
+      error(err.message || ("resendError"));
     } finally {
       setIsResendLoading(false);
     }
-  }, [signIn, isLoaded, success, error, tToast]);
+  }, [signIn, isLoaded, success, error]);
 
   // Verify OTP (بدون handleVerify في deps)
   const verifyOtp = useCallback(async () => {
@@ -112,23 +111,23 @@ export default function OtpStep({ email, onBack, onSuccess }: OtpStepProps) {
 
       if (result.status === "complete" && signIn.createdSessionId) {
         await setActive({ session: signIn.createdSessionId });
-        success(tToast("otpsuccess"));
+        success(("otpsuccess"));
         onSuccess();
       } else {
         throw new Error("Verification failed");
       }
     } catch (err: any) {
       if (err.code === "code_expired") {
-        error(tToast("otpExpired"));
+        error(("otpExpired"));
         setCanResend(true);
         setOtp("");
       } else {
-        error(err.message || tToast("otperror"));
+        error(err.message || ("otperror"));
       }
     } finally {
       setIsVerifyLoading(false);
     }
-  }, [otp, signIn, isLoaded, setActive, onSuccess, success, error, tToast, isVerifyLoading]);
+  }, [otp, signIn, isLoaded, setActive, onSuccess, success, error, isVerifyLoading]);
 
   // تحقق تلقائي عند كتابة آخر رقم
   useEffect(() => {

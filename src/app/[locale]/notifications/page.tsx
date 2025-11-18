@@ -2,6 +2,7 @@
 
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Profileindex from "@/components/profile";
+import { Book } from "lucide-react";
 
 export default async function NotificationsPage({
   params,
@@ -24,8 +25,12 @@ export default async function NotificationsPage({
   return (
     <div className="pt-20 lg:pt-35 mt-10" dir={dir}>
       <Breadcrumbs crumbs={crumbs} />
-      <div className="container mx-auto px-4">
         <Profileindex />
+      <div className="flex flex-col items-center gap-5 py-25 ">
+        <div className="rounded-full bg-indigo-50 p-15">
+          <Book className="w-15 h-15 text-gray-400 " />
+        </div>
+        <h2 className="text-gray-400"> الأمنيات غالباً تتحقق !</h2>
       </div>
     </div>
   );

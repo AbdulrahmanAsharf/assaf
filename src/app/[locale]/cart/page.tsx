@@ -95,10 +95,12 @@ export default function Cart() {
                     <div className="pt-2">
                       <h2 className="font-bold text-sm">{item.title}</h2>
                       <div className="flex gap-1">
-                        <div className="flex items-center line-through">
-                          <h2 className="text-sm">{item.oldprice * item.qty}</h2>
-                          <SaudiRiyal className="w-3 h-3" />
-                        </div>
+                        {item.oldprice * item.qty > 0 && (
+                          <div className="flex items-center line-through">
+                            <h2 className="text-sm">{item.oldprice * item.qty}</h2>
+                            <SaudiRiyal className="w-3 h-3" />
+                          </div>
+                        )}
                         <div className="flex items-center text-red-400">
                           <h2 className="font-normal">{item.price * item.qty}</h2>
                           <SaudiRiyal className="w-4 h-4" />
