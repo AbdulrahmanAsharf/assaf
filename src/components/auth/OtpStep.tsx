@@ -156,7 +156,7 @@ export default function OtpStep({ email, onBack, onSuccess }: OtpStepProps) {
     <div className="relative">
       <button
         onClick={onBack}
-        className="absolute top-5 left-7 p-1 rounded-full hover:bg-gray-100"
+        className="absolute bottom-128 left-0 p-0 rounded-full hover:bg-gray-100"
         aria-label="Back"
       >
         <ArrowRight className="w-5 h-5" />

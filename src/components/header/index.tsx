@@ -74,6 +74,7 @@ export default function Header({
         }
       } else {
         setHeader("pt-0")
+        setShop("/icon/download (1).svg")
         setShopcolor("bg-red-400 text-white")
 
         // الصفحات غير الرئيسية

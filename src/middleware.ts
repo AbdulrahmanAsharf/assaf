@@ -1,34 +1,53 @@
-// middleware.ts
+// src/middleware.ts
 import { clerkMiddleware } from "@clerk/nextjs/server";
-import { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 
 const intlMiddleware = createMiddleware(routing);
 
+// الصفحات المحمية
+const protectedPaths = [
+  'profile',
+  'pending_orders', 
+  'orders',
+  'notifications',
+  'wishlist'
+];
+
 export default clerkMiddleware(async (auth, req: NextRequest) => {
-  // 1. next-intl يضبط اللغة والـ pathname
-  const intlResponse = intlMiddleware(req);
-  if (intlResponse) return intlResponse;
-
-  // 2. بعد تعديل الـ pathname
   const pathname = req.nextUrl.pathname;
-
-  // 3. تحقق من /ar/profile أو /en/profile
-  const isProfilePage = /^\/(ar|en)\/profile($|\/)/.test(pathname);
-
-  if (isProfilePage) {
+  
+  // استخراج اللغة والمسار
+  const locale = pathname.startsWith('/ar') ? 'ar' : 'en';
+  const pathWithoutLocale = pathname.replace(/^\/(ar|en)/, '') || '/';
+  
+  // فحص إذا كان المسار محمي
+  const isProtected = protectedPaths.some(path => 
+    pathWithoutLocale === `/${path}` || pathWithoutLocale.startsWith(`/${path}/`)
+  );
+  
+  if (isProtected) {
     const { userId } = await auth();
+    
     if (!userId) {
-      return Response.redirect(new URL("/", req.url));
+      // إعادة توجيه للصفحة الرئيسية مع الحفاظ على اللغة
+      return NextResponse.redirect(new URL(`/${locale}`, req.url));
     }
   }
-
-  return intlResponse;
+  
+  // تطبيق next-intl middleware
+  return intlMiddleware(req);
 });
 
 export const config = {
   matcher: [
-    "/((?!_next|api|.*\\.(?:html?|css|js(?!on)|jpe?g|png|gif|webp|svg|mp4|webm|mov|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // تطابق كل المسارات ما عدا الملفات الثابتة
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // تطابق always root
+    '/',
+    // تطابق الـ locales
+    '/(ar|en)/:path*'
   ],
 };
