@@ -74,22 +74,18 @@ export default function Header({
         }
       } else {
         setHeader("pt-0")
-        setShop("/icon/download (1).svg")
+        setShop("/icon/download.svg")
         setShopcolor("bg-red-400 text-white")
 
         // الصفحات غير الرئيسية
         if (scrollY > 200) {
           setShowFixedHeader(true);
-          setShop("/icon/download.svg")
           setBgClass('bg-white shadow-sm');
           setTextColorClass('text-black');
           setImg('/icon/b7mx5Vp0dkXgh7M718NYszs9hmwKILfSRIemk0Fl (1).png');
           setHeader("pt-4 pb-4")
-
-
         } else {
           setShowFixedHeader(false);
-
 
         }
       }

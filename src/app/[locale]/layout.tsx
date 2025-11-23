@@ -1,31 +1,31 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/app/[locale]/layout.tsx
+
 import type { Metadata } from "next";
 import "./globals.css";
-import { hasLocale } from "next-intl";
+import { headers } from "next/headers"; // ← مهم جدًا للـ not-found
 import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
 import { Cairo, Poppins } from "next/font/google";
-import { ClerkProvider } from '@clerk/nextjs';
+import { ClerkProvider } from "@clerk/nextjs";
 import ClientLayout from "./ClientLayout";
-import { getMessages } from 'next-intl/server'; 
+import { getMessages } from "next-intl/server";
 
 const cairo = Cairo({
   subsets: ["arabic"],
   weight: ["400", "500", "700"],
-  variable: "--font-cairo"
+  variable: "--font-cairo",
 });
 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-  variable: "--font-poppins"
+  variable: "--font-poppins",
 });
-
 
 export const metadata: Metadata = {
   title: "عساف للعطور | 3saf - إما العظمة أو لا شيء",
   description:
-    "عطور عساف الاصلية - عطور سعودية فاخرة بثبات عالي: فيكتوريا، بينك ليدي، عود نجدي. شحن مجاني وتغليف هدايا 🎁",
+    "عطور عساف الاصلية - عطور سعودية فاخرة بثبات عالي: فيكتوريا، بينك ليدي، عود نجدي. شحن مجاني وتغليف هدايا",
   openGraph: {
     title: "عساف للعطور | 3saf Perfumes",
     description: "إما العظمة أو لا شيء - عطور سعودية فاخرة بثبات يدوم 24 ساعة",
@@ -35,21 +35,23 @@ export const metadata: Metadata = {
 
 export default async function LocaleLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
+  // تحقق من اللغة
   if (!["ar", "en"].includes(locale)) notFound();
 
-  const dir = locale === "ar" ? "rtl" : "ltr" as const; 
+  const dir = locale === "ar" ? "rtl" : "ltr" as const;
   const fontClass = locale === "ar" ? cairo.variable : poppins.variable;
   const messages = await getMessages();
+
+  // السطر السحري اللي يخلّي not-found.tsx تعرف الـ pathname
+  const pathname = (await headers()).get("x-pathname") || `/${locale}`;
+  (globalThis as any).__NEXT_LOCALE_PATHNAME = pathname;
 
   return (
     <ClerkProvider>

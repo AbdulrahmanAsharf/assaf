@@ -28,7 +28,7 @@ export default function ClientLayout({
   const isCheckout = pathname?.includes("/checkout");
 
   return (
-    <html lang={locale} dir={dir} className={fontClass}>
+    <html lang={locale} dir={dir} className={fontClass} suppressHydrationWarning>
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {isCheckout ? (
