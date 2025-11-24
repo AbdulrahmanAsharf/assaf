@@ -5,31 +5,33 @@ import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 import Header from "@/components/header";
 import Footer from "@/components/Footer";
-import { Bounce, ToastContainer } from 'react-toastify';
+import { Bounce, ToastContainer } from "react-toastify";
 import ScrollCircle from "@/components/ScrollCircle/ScrollCircle";
-import { NextIntlClientProvider, type AbstractIntlMessages } from 'next-intl'; 
+import { NextIntlClientProvider, type AbstractIntlMessages } from "next-intl";
 
-type Dir = "rtl" | "ltr"; 
+type Dir = "rtl" | "ltr";
 
 export default function ClientLayout({
   children,
   locale,
   dir,
   fontClass,
-  messages, 
+  messages,
 }: {
   children: ReactNode;
   locale: string;
-  dir: Dir; 
+  dir: Dir;
   fontClass: string;
-  messages: AbstractIntlMessages; 
+  messages: AbstractIntlMessages;
 }) {
   const pathname = usePathname();
   const isCheckout = pathname?.includes("/checkout");
 
   return (
     <html lang={locale} dir={dir} className={fontClass} suppressHydrationWarning>
-      <body>
+      <body className="relative min-h-screen">
+
+
         <NextIntlClientProvider locale={locale} messages={messages}>
           {isCheckout ? (
             children
@@ -43,7 +45,7 @@ export default function ClientLayout({
                 transition={Bounce}
               />
               <Header dir={dir} locale={locale} />
-              {children}
+              <main>{children}</main>
               <ScrollCircle dir={dir} />
               <Footer />
             </>

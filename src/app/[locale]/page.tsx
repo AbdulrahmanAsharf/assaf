@@ -1,4 +1,3 @@
-
 import Frankl from "@/components/Frankl";
 import Lady from "@/components/Lady";
 import Niche from "@/components/Niche";
@@ -8,44 +7,32 @@ import Section2 from "@/components/section2";
 import Section3 from "@/components/Section3";
 import Tobacco from "@/components/Tobacco";
 import Watches from "@/components/Watches";
+import Image from "next/image";
 
 
 export default function HomePage() {
-
   return (
-
     <>
-      <div className="relative w-screen h-screen overflow-hidden">
-        <video
-          src="/video/3saf0012.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+    <div className="w-full relative">
+        <Image
+          src="/icon/header.webp" 
+          alt="صورة بعرض كامل"
+          width={1920} 
+          height={1080} 
+          className="w-full h-auto object-cover"
+          priority
         />
       </div>
+
       <Section1 />
-      <Lady params={{
-        locale: ""
-      }} />
-      <Pink params={{
-        locale: ""
-      }} />
+      <Lady params={{ locale: "" }} />
+      <Pink params={{ locale: "" }} />
       <Section2 />
-      <Frankl params={{
-        locale: ""
-      }} />
+      <Frankl params={{ locale: "" }} />
       <Section3 />
-      <Niche params={{
-        locale: ""
-      }} />
-      <Watches params={{
-        locale: ""
-      }} />
-      <Tobacco params={{
-        locale: ""
-      }} />
+      <Niche params={{ locale: "" }} />
+      <Watches params={{ locale: "" }} />
+      <Tobacco params={{ locale: "" }} />
     </>
   );
 }

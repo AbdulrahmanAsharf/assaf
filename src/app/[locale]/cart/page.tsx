@@ -67,7 +67,7 @@ export default function Cart() {
 
       router.push(`/checkout?secret=${clientSecret}&amount=${totalAmount}&cart=${encodeURIComponent(cartData)}`);
     } catch (err) {
-      toast.error("payerror");
+      toast.error("paymentFailed");
     } finally {
       setLoading(false);
     }

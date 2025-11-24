@@ -29,7 +29,7 @@ export default function OrdersList() {
         <div className="rounded-full bg-indigo-50 p-15">
           <Codesandbox className="w-15 h-15 text-gray-400 " />
         </div>
-        <h2 className="text-gray-400"> الأمنيات غالباً تتحقق !</h2>
+        <h2 className="text-gray-400"> طلبات غالباً تتحقق !</h2>
       </div>
     );
   }
