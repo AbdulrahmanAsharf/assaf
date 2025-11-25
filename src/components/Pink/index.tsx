@@ -15,7 +15,7 @@ export default function Pink({ params }: { params: { locale: string } }) {
                 <div className="w-full">
                     <Image
                         alt="pinword"
-                        src="/عالم بينك/i9Y7qjnAIaeMldqstubWLGGdNwSFnqYAUex3ZtEs.png"
+                        src="/img/2.jpg"
                         width={1200}
                         height={800}
                         className="img"
