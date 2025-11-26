@@ -38,6 +38,7 @@ import { checkEmailExists } from "@/actions/check-email-exists";
 import OtpStep from "../auth/OtpStep";
 import { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import { useToast } from "@/utils/toast";
+import { syncUserToPrisma } from "@/actions/sync-user"; // ✅ استيراد دالة المزامنة
 
 // Export the type for external use
 export interface UserSRef {
@@ -140,26 +141,18 @@ export const UserS = forwardRef<UserSRef, UserSProps>((props, ref) => {
 
     setIsDetailsLoading(true);
     try {
-      const updateResult = await signUp.update({
+     await signUp.update({
         firstName: values.firstName,
         lastName: values.lastName,
         unsafeMetadata: { phone: values.phone },
       });
 
-      if (updateResult.status === "complete" && signUp.createdSessionId) {
-        await setActive({ session: signUp.createdSessionId });
-        toast.success("detailssuccess");
-        triggerRef.current?.click();
-      } else {
-        const result = await signUp.attemptEmailAddressVerification({ code: "000000" });
-        if (result.status === "complete" && signUp.createdSessionId) {
+        if ( signUp.createdSessionId) {
           await setActive({ session: signUp.createdSessionId });
+          await syncUserToPrisma();
           toast.success("detailssuccess");
           triggerRef.current?.click();
-        } else {
-          throw new Error("فشل إنشاء الحساب");
-        }
-      }
+        } 
     } catch (err: any) {
       toast.error(err.message || "detailsError");
     } finally {

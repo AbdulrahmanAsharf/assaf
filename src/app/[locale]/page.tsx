@@ -13,16 +13,26 @@ import Image from "next/image";
 export default function HomePage() {
   return (
     <>
-    <div className="w-full relative">
-        <Image
-          src="/icon/header.webp" 
-          alt="صورة بعرض كامل"
-          width={1920} 
-          height={1080} 
-          className="w-full h-auto object-cover"
-          priority
-        />
-      </div>
+<div className="w-full relative">
+  <Image
+    src="/icon/header sm.webp"
+    alt="Header Small"
+    width={1920}
+    height={1080}
+    className="w-full h-auto object-cover block md:hidden"
+    priority
+  />
+
+  <Image
+    src="/icon/header.webp"
+    alt="Header Large"
+    width={1920}
+    height={1080}
+    className="w-full h-auto object-cover hidden md:block"
+    priority
+  />
+</div>
+
 
       <Section1 />
       <Lady params={{ locale: "" }} />

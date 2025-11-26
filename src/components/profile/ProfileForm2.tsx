@@ -21,12 +21,13 @@ import {
 import { Spinner } from '@/components/ui/spinner'
 import { Bounce, toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
-import { deleteAccountAction } from '@/actions/delete-account'
+import { deleteAccountAction } from '@/actions/delete-account' 
+
 
 export function ProfileForm2() {
     const locale = useLocale()
     const t = useTranslations("profile")
-    const [isPromotionEnabled, setIsPromotionEnabled] = useState(false) // 👈 نضيف state
+    const [isPromotionEnabled, setIsPromotionEnabled] = useState(false) 
 
     return (
         <div className='cursor-pointer'>
@@ -92,7 +93,7 @@ export function DisableButton() {
                         theme: "colored",
                         transition: Bounce,
                     });
-                    router.push("/"); // توجيه للصفحة الرئيسية
+                    router.push("/"); 
                 } else {
                     throw new Error(result.error);
                 }

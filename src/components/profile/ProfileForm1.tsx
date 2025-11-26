@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -37,6 +37,8 @@ import { useTranslations, useLocale } from 'next-intl'
 import { createProfileSchema, type ProfileSchema } from "@/validations/auth";
 import { Spinner } from '@/components/ui/spinner'
 import { useToast } from '@/utils/toast'
+import { syncUserToPrisma } from '@/actions/sync-user' // ✅ استيراد دالة المزامنة
+
 
 export function ProfileForm1() {
     const { user } = useUser()
@@ -89,6 +91,7 @@ export function ProfileForm1() {
                 },
             })
             await user.reload();
+            await syncUserToPrisma();
             toast.success("profileupdate");
         } catch (err: any) {
             toast.error(err.message || ("profileerror"));
@@ -191,7 +194,7 @@ export function ProfileForm1() {
                                         form.trigger("sex"); // تحقق عند اختيار الجنس
                                     }}
                                     value={field.value}
-                                >                                    
+                                >
                                     <FormControl>
                                         <SelectTrigger className="w-full">
                                             <SelectValue placeholder={t("selectGender")} />
