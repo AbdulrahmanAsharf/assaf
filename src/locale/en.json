@@ -209,5 +209,24 @@
     "total": "Total",
     "sar": "SAR",
     "viewDetails": "View Details"
+  },
+  "Footer": {
+    "slogan": "Greatness, or nothing.",
+    "importantLinks": "Important Links",
+    "aboutUs": "About Us",
+    "shippingInfo": "Shipping Information",
+    "privacyPolicy": "Privacy Policy",
+    "complaints": "Complaints & Inquiries",
+    "franchise": "Franchise Requests",
+    "returns": "Return Information",
+    "contactUs": "Contact Us",
+    "phone": "9889892",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "commercialRegister": "Commercial Register",
+    "commercialNumber": "1010741307",
+    "taxRegister": "Tax Number",
+    "taxNumber": "302159873900003",
+    "copyright": "All Rights Reserved | 2025 Assaf Perfumes"
   }
 }

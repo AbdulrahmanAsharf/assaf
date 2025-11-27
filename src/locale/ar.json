@@ -208,5 +208,24 @@
     "total": "الإجمالي",
     "sar": "ر.س",
     "viewDetails": "عرض التفاصيل"
-  }
+  },
+  "Footer": {
+    "slogan": "إما العظمة، أو لا شيء.",
+    "importantLinks": "روابط مهمة",
+    "aboutUs": "من نحن",
+    "shippingInfo": "معلومات الشحن",
+    "privacyPolicy": "سياسة الخصوصية",
+    "complaints": "للشكاوي والاستفسارات",
+    "franchise": "طلبات الامتياز التجاري",
+    "returns": "معلومات الإرجاع",
+    "contactUs": "تواصل معنا",
+    "phone": "9889892",
+    "whatsapp": "واتساب",
+    "email": "البريد الإلكتروني",
+    "commercialRegister": "السجل التجاري",
+    "commercialNumber": "1010741307",
+    "taxRegister": "الرقم الضريبي",
+    "taxNumber": "302159873900003",
+    "copyright": "الحقوق محفوظة | 2025 عطور عساف"
+}
 }
